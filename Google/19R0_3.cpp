@@ -29,8 +29,11 @@ int main(){
     REP(i, 1, test){
         // IN    
         int N, L; cin >>N>>L;
-        
-        // Sieve of Eratosthenes
+        vl cyp(L);
+        for(ll &x : cyp) cin>>x;
+                
+        //// ALGORITHM
+        // 0. Sieve of Eratosthenes
         bool sieve[N+1] = {};
         REP(i, 2, N){
             if(!sieve[i]){
@@ -40,40 +43,32 @@ int main(){
             }
         }
         
-        vl cyp(L);
-        for(ll &x : cyp) cin>>x;
-        
-        //// ALGORITHM
+
         // 1. Check repeatation
         vi raw(L+1);
         set<int> alp;
         
-        int a1 = Prime(cyp[0]);
-        int a2 = cyp[0]/a1;
-        alp.insert(a1); alp.insert(a2);
-            
         int pos = 0;
-        while(1){
-            
-            if(cyp[pos] != cyp[pos+1]) {
-                int x1 = Prime(cyp[pos+1]);
-                
-                raw[pos+1] = alp.count(x1) ? x1 : cyp[pos+1]/x1;
-                raw[pos+2] = cyp[pos+1] / raw[pos+1];
-                alp.insert(raw[pos+2]);
-                break;
-            }
-            
+        while(cyp[pos] == cyp[pos+1]){
             pos++;
         }
-        
-        
-        // 2. Fill raw[0 : pos]
-        for(int i = pos; i>=0; i--)
-            raw[i] = raw[i+1] == a1 ? a2 : a1;
 
-        // ... and raw[pos+3 : L]
-        REP(i, pos+3, L){
+        int x1 = Prime(cyp[pos]);
+        int x2 = cyp[pos]/x1;
+        alp.insert(x1); alp.insert(x2);
+        int y1 = Prime(cyp[pos+1]);
+        int y2 = cyp[pos+1]/y1;
+
+        raw[pos+1] = alp.count(y1) ? y1 : y2;
+        raw[pos] = raw[pos+1]==x1 ? x2 : x1;
+
+
+        // 2. Fill raw[0 : pos-1]
+        for(int i = pos-1; i>=0; i--)
+            raw[i] = raw[i+2];
+
+        // ... and raw[pos+2 : L]
+        REP(i, pos+2, L){
             raw[i] = cyp[i-1]/raw[i-1];
             alp.insert(raw[i]);
         }
@@ -88,9 +83,7 @@ int main(){
         
         // 4. Final answer
         vector<char> ans(L+1);
-        ans[0] = trans[raw[0]];
-        
-        REP(i, 1, L)
+        REP(i, 0, L)
             ans[i] = trans[raw[i]];
         
         
