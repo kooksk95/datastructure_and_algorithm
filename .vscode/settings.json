@@ -1,4 +1,10 @@
 {
+    "editor.fontSize":14,
+    "editor.fontFamily":"Hack",
+    "editor.mouseWheelZoom": true,
+    "python.jediEnabled": false,
+    "files.autoGuessEncoding": true,
+    
     "files.associations": {
         "iostream": "cpp",
         "iosfwd": "cpp"
