@@ -13,18 +13,12 @@ typedef vector<pair<int, int>> vp;
 typedef long long ll;
 typedef pair<int,int> pi;
 
-ll arr[20], n, s, ans;
-vector<int> subset;
+ll arr[20], n, s;
 
-void search(int i){
-    if(i == n){
-        
-    } else {
-        subset.pb(arr[i]);
-        search(i+1);
-        subset.pop_back();
-        search(i+1);
-    }
+int search(int i, int sum){
+    if(i == n) return sum == s;
+
+    return search(i+1, sum + arr[i]) + search(i+1, sum);
 }
 
 int main(){
@@ -32,14 +26,11 @@ int main(){
     cin>>n>>s;
     REP(i, 0, n-1) cin >> arr[i];
 
-    memset(arr, 0, sizeof(arr));
-    ans = 0;
-
-    search(0);
-
-
-
-
+    ll ans = search(0, 0);
+    
+    if(s == 0) ans--; // CASE |s| = 0
+    
+    cout << ans;
 
     return 0;
 }
