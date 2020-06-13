@@ -23,10 +23,9 @@ int main(){
 
     REP(i, 1, n){
         int x; cin >> x;
-        int idx = lower_bound(bests, bests+ans+1, x) - bests - 1;
-        int res = idx+1;
-        ans = max(res, ans);
-        bests[res] = x;
+        int idx = lower_bound(bests, bests+ans+1, x) - bests;
+        ans = max(idx, ans);
+        bests[idx] = x;
     }
 
     cout << ans;
