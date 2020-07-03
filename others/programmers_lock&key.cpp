@@ -21,13 +21,9 @@ bool trial(int x, int y){
     
     for(int i = 0; i<n; i++){
         for(int j = 0; j<n; j++){
-            // cout << "i,j = " << i << " " << j << "\n";
             if(i>=x && i<x+m && j>=y && j<y+m){
                 int fit = l[i][j] + k[i-x][j-y];
                 res = fit == 1 ? 1 : 0;
-                // cout << res << " " << fit << "\n";
-                // cout << "lock(" << i << "," << j << ")="<< l[i][j]
-                //     << " key (" << i-x << "," << j-y << ")=" << k[i-x][j-y] <<"\n";
             } else
                 res &= l[i][j];
             
@@ -44,7 +40,6 @@ bool solution(vector<vector<int>> key, vector<vector<int>> lock) {
     
     for(int i = -m+1; i< n; i++){
         for(int j = -m+1; j< n; j++){
-            // cout << "~~~ TRY from key " << i << "," << j << "\n";            
             answer = trial(i, j);
             if(answer) return answer;
         }
@@ -53,7 +48,6 @@ bool solution(vector<vector<int>> key, vector<vector<int>> lock) {
     rotate();
     for(int i = -m+1; i< n; i++){
         for(int j = -m+1; j< n; j++){
-            // cout << "~~~ TRY from key " << i << "," << j << "\n";            
             answer = trial(i, j);
             if(answer) return answer;
         }
@@ -62,7 +56,6 @@ bool solution(vector<vector<int>> key, vector<vector<int>> lock) {
     rotate();
     for(int i = -m+1; i< n; i++){
         for(int j = -m+1; j< n; j++){
-            // cout << "~~~ TRY from key " << i << "," << j << "\n";            
             answer = trial(i, j);
             if(answer) return answer;
         }
@@ -71,7 +64,6 @@ bool solution(vector<vector<int>> key, vector<vector<int>> lock) {
     rotate();
     for(int i = -m+1; i< n; i++){
         for(int j = -m+1; j< n; j++){
-            // cout << "~~~ TRY from key " << i << "," << j << "\n";            
             answer = trial(i, j);
             if(answer) return answer;
         }

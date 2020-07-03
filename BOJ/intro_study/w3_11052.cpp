@@ -21,14 +21,7 @@ int main(){
     int n; cin>>n;
     
     
-    
-    REP(i, , n-1) {
 
-    }
-    
-    
-    
-    
     return 0;
 
 }   
