@@ -9,15 +9,44 @@ int main(){
     ios::sync_with_stdio(0);
     cin.tie(0);
 
-    cout << "Q. Count 5 out of 52 in such case\n";
+    cout << "Q. Count 5 out of 52 in such case, pattern not considered\n";
+    // 1. choose pair of numbers
+    
+    vector<vector<int>> combinations;
+    for(int i = 1; i<=13; i++){  //the pair number
+        int count = 0;
+        
+        // other numbers
+        for(int c3 = 1; c3<=11; c3++){
+            if(c3 == i) continue;
 
+            for(int c4 = c3+1; c4 <=12; c4++){
+                if(c4 == i) continue;
+            
+                for(int c5 = c4+1; c5 <=13; c5++){
+                    if(c5 == i) continue;
+
+                    vector<int> tmp;
+                    tmp.push_back(i);
+                    tmp.push_back(i);
+                    tmp.push_back(c3);
+                    tmp.push_back(c4);
+                    tmp.push_back(c5);
+                    combinations.push_back(tmp);
+                }
+            }
+        }
+    }
+
+
+    cout << "A. " << combinations.size() << "\n";
 
     cout << "Q. Try with description 2\n";
     int patterns = 3;
     string pattern[patterns] = {"Heart", "Diamond", "Spade"};
     vector<vector<string>> answer;
 
-    for(int i = 1; i<=8; i++){
+    for(int i = 1; i<=1; i++){
         // pattern of is
         for(int j = 0; j<patterns-1; j++){
             for(int k = j+1; k<patterns; k++){
@@ -26,10 +55,10 @@ int main(){
                 card2 = pattern[k] + " " + to_string(i);
                 
                 // other card
-                for(int j = 1; j<=8; j++){
-                    if(i == j) continue;
-                    for(int k = 0; k < 3; k++){
-                        string card3 = pattern[k] + " " + to_string(j);
+                for(int c = 1; c<=8; c++){
+                    if(i == c) continue;
+                    for(int l = 0; l < 3; l++){
+                        string card3 = pattern[l] + " " + to_string(c);
                         vector<string> tmp;
                         tmp.push_back(card1);
                         tmp.push_back(card2);
