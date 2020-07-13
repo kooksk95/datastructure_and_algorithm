@@ -16,8 +16,8 @@ double get_dist(int i, int j){
 
 int main(int argc, char** argv)
 {
-	int a = 10;
-
-	cout<<get_dist(0,1);
+	int a = 100;
+	char* buf = itoa(a);
+	cout<<buf;
 	return 0;//정상종료시 반드시 0을 리턴해야합니다.
 }

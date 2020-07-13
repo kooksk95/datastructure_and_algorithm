@@ -1,5 +1,5 @@
 /*
-	최적경로 - 모든 점을 방문하는 최단 거리를 구하여라 (brute force)
+	최적경로 - 모든 점을 방문하는 최단 거리를 구하여라 BF -> DP
 */
 #include<bits/stdc++.h>
 using namespace std;
