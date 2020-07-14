@@ -7,17 +7,40 @@ using namespace std;
 typedef vector<int> vi;
 typedef pair<int,int> pi;
 
-int x[] = {4,10,20};
-int y[] = {1,6,20};
 
-double get_dist(int i, int j){
-	return (pow(x[i]-x[j],2) + pow(y[i]-y[j],2));
+int solution(vector<int> citations) {
+    sort(citations.begin(), citations.end(), greater<int>());
+
+    int h = citations[0]+1, cnt = 1;
+    while(h--){
+    	// cout<<"# of citation over "<<h<<" = "<<cnt;ENT
+    	
+    	while(citations[cnt]>=h)
+    		cnt++;
+    	if(h<=cnt) break;
+    }
+
+    return h;
 }
 
 int main(int argc, char** argv)
 {
-	int a = 100;
-	char* buf = itoa(a);
-	cout<<buf;
-	return 0;//정상종료시 반드시 0을 리턴해야합니다.
+	int arr[] = {0,0,0,0};
+	vi vec;
+	vec.insert(vec.begin(), arr, arr+4);
+
+
+	cout<<solution(vec);
+
+	return 0;
 }
+
+// [10, 9, 4, 1, 1] -> 3
+// [0, 1, 3, 5, 5, 5, 5, 5, 5, 6] -> 5
+// 0, 1, 1, 1, 1, 3, 3, 4 -> 3
+// 5, 5, 5, 0 -> 3
+// 9, 9, 8, 7 -> 4
+// 5, 5, 5, 5 -> 4
+// 5, 5, 5, 5, 5 -> 5
+// 2, 2, 2, 2, 2 -> 2
+// 0, 0, 0, 0 -> 0
