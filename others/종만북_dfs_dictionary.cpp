@@ -5,24 +5,18 @@
 using namespace std;
 
 vector<char> topo;
-bool cycle, graph[26][26], visited[26];
+bool cycle, graph[26][26], visited[26], finished[26];
 int n;
-
-void check(){
-	for(int i=0; i<26; i++){
-		for(int j=i+1; j<26; j++){
-			if(graph[topo[j]-'a'][topo[i]-'a'])
-				cycle = 1;
-		}
-	}
-}
 
 void dfs(int v){
   visited[v] = 1;
   for(int u=0; u<26; u++){
 	if(graph[v][u] && !visited[u])
 	  dfs(u);
+	else if(graph[v][u] && !finished[u])
+		cycle = 1;
   }
+  finished[v] = 1;
   topo.push_back('a' + v);
 }
 
@@ -33,6 +27,7 @@ int main(){
 	
 	memset(graph, 0, sizeof(graph));
 	memset(visited, 0, sizeof(visited));
+	memset(finished, 0, sizeof(finished));
 	topo.clear();
 	cycle = 0;
 	
@@ -57,14 +52,11 @@ int main(){
 	  if(!visited[i])
 		dfs(i);
 	}
-
-	reverse(topo.begin(), topo.end());
-	check();
-
+	
 	
 	if(cycle) cout<<"INVALID HYPOTHESIS\n";
 	else {
-	  
+	  reverse(topo.begin(), topo.end());
 	  for(char c : topo) cout<<c;
 	  cout<<"\n";
 	}

@@ -1,6 +1,5 @@
 #include <string>
 #include <vector>
-#include <iostream>
 
 using namespace std;
 vector<vector<string>> edges;
@@ -9,8 +8,7 @@ string ans_string = "a";
 
 void dfs(string cur, string path, int depth) {
     if (depth == 0) {
-        if (path < ans_string)
-            ans_string = path;
+        ans_string = min(path, ans_string);
         return;
     }
 
@@ -18,7 +16,7 @@ void dfs(string cur, string path, int depth) {
         if (cur == edges[i][0] && !visited[i]) {
             visited[i] = 1;
             dfs(edges[i][1], path + edges[i][1], depth-1);
-            visited[i] = 0;
+            visited[i] = 0; 
         }
     }
 }

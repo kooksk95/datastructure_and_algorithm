@@ -1,20 +1,66 @@
-#include<bits/stdc++.h>
-
+/*
+	단어들이 주어질 때, 특정 순서(선후관계)에 의해 정렬되지 않았으면 Invalid, 순서가 성립할 경우 임의의 한가지를 출력하시오
+*/
+#include <bits/stdc++.h>
 using namespace std;
-#define MX 12
-#define INF (1<<30)
-#define REP(i,a,b) for(auto i=a; i<b; i++)
-#define ENT cout<<"\n";
-#define IOS ios::sync_with_stdio(0);cin.tie(0);
 
-int main(int argc, char** argv)
-{
-	int arr[] = {0,1};
-	vector<int> v;
-	v.push_back(0);
-	v.push_back(1);
-	reverse(v.begin(), v.end());
-	for(int x:v)
-		cout<<x<<" ";
-	return 0;//정상종료시 반드시 0을 리턴해야합니다.
+vector<char> topo;
+bool cycle, graph[26][26], visited[26], finished[26];
+int n;
+
+void dfs(int v){
+  visited[v] = 1;
+  for(int u=0; u<26; u++){
+	if(graph[v][u] && !visited[u])
+	  dfs(u);
+	else if(graph[v][u] && !finished[u])
+		cycle = 1;
+  }
+  finished[v] = 1;
+  topo.push_back('a' + v);
+}
+
+int main(){
+  int T;
+  cin>>T;
+  for(int t=0; t<T; t++) {
+	
+	memset(graph, 0, sizeof(graph));
+	memset(visited, 0, sizeof(visited));
+	memset(finished, 0, sizeof(finished));
+	topo.clear();
+	cycle = 0;
+	
+	cin>>n;
+	vector<string> words(n);
+	for(string& x: words) cin>>x;
+
+
+	for(int i=0; i<n-1; i++){
+	  string str1=words[i], str2=words[i+1];
+	  int s = min(str1.size(), str2.size());
+	  for(int k=0; k<s; k++){
+	  	if(str1[k] != str2[k]){
+	  		graph[str1[k]-'a'][str2[k]-'a'] = 1;
+	  		break;
+	  	}
+	  }
+	}
+
+
+	for(int i=0; i<26; i++){
+	  if(!visited[i])
+		dfs(i);
+	}
+	
+	if(cycle) cout<<"INVALID HYPOTHESIS\n";
+	else {
+	  reverse(topo.begin(), topo.end());
+	  for(char c : topo) cout<<c;
+	  cout<<"\n";
+	}
+	  
+  }
+  
+  return 0; 
 }
