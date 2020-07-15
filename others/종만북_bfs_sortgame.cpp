@@ -1,3 +1,6 @@
+/*
+	배열이 주어질 때, 몇번의 구간 뒤집기를 통해 오름차순으로 정렬할 수 있는지 반환하시오
+*/
 #include <bits/stdc++.h>
 using namespace std;
 

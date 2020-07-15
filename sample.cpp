@@ -1,66 +1,57 @@
-/*
-	단어들이 주어질 때, 특정 순서(선후관계)에 의해 정렬되지 않았으면 Invalid, 순서가 성립할 경우 임의의 한가지를 출력하시오
-*/
 #include <bits/stdc++.h>
 using namespace std;
 
-vector<char> topo;
-bool cycle, graph[26][26], visited[26], finished[26];
-int n;
+map<vector<int>,int> toSort;
 
-void dfs(int v){
-  visited[v] = 1;
-  for(int u=0; u<26; u++){
-	if(graph[v][u] && !visited[u])
-	  dfs(u);
-	else if(graph[v][u] && !finished[u])
-		cycle = 1;
+void precalc(int n){
+  vector<int> vec;
+  for(int i=0; i<=n; i++) vec.push_back(i);
+  
+  queue<vector<int>> q;
+  toSort[vec] = 0;
+  q.push(vec);
+  while(!q.empty()){
+	vector<int> curr = q.front();
+	q.pop();
+	int cost = toSort[curr];
+	for(int i=0; i<n; i++){
+	  for(int j=2; j<=n;j++){
+		reverse(curr.begin()+i, curr.end()+j);
+		if(toSort.count(curr) == 0){
+		  toSort[curr] = cost+1;
+		  q.push(tv);
+		}
+		reverse(curr.begin()+i, curr.end()+j);
+	  }
+	}
+	
   }
-  finished[v] = 1;
-  topo.push_back('a' + v);
 }
 
 int main(){
   int T;
   cin>>T;
-  for(int t=0; t<T; t++) {
-	
-	memset(graph, 0, sizeof(graph));
-	memset(visited, 0, sizeof(visited));
-	memset(finished, 0, sizeof(finished));
-	topo.clear();
-	cycle = 0;
-	
+  memset(dist,-1,sizeof(dist));
+  for(int i=1;i<=8;i++) precalc(i);
+  
+  for(int t=0; t<T; t++){
+	int n;
 	cin>>n;
-	vector<string> words(n);
-	for(string& x: words) cin>>x;
-
-
-	for(int i=0; i<n-1; i++){
-	  string str1=words[i], str2=words[i+1];
-	  int s = min(str1.size(), str2.size());
-	  for(int k=0; k<s; k++){
-	  	if(str1[k] != str2[k]){
-	  		graph[str1[k]-'a'][str2[k]-'a'] = 1;
-	  		break;
-	  	}
-	  }
-	}
-
-
-	for(int i=0; i<26; i++){
-	  if(!visited[i])
-		dfs(i);
+	vector<int> input(n);
+	for(int& x: input) cin>>x;
+	
+	// 상대 크기로 변환
+	vector<int> changed(n);
+	for(int i=0; i<n; i++){
+	  int smallest = 0;
+	  for(int j=0; j<n; j++)
+		if(input[i] > input[j])
+		  smallest++;
+	  changed[i] = smallest;
 	}
 	
-	if(cycle) cout<<"INVALID HYPOTHESIS\n";
-	else {
-	  reverse(topo.begin(), topo.end());
-	  for(char c : topo) cout<<c;
-	  cout<<"\n";
-	}
-	  
+	cout<<dist[changed]<<"\n";
   }
   
-  return 0; 
+  return 0;
 }
