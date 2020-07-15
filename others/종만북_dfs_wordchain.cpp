@@ -1,3 +1,6 @@
+/*
+	단어 목록이 주어질 때, 이를 전부 사용하고 게임이 끝난다면 순서를, 불가능하면 IMPOSSIBLE을 출력하시오
+*/
 #include <bits/stdc++.h>
 using namespace std;
 #define MX 26
@@ -68,8 +71,6 @@ int main(){
 					break;
 				}
 		}
-
-		cout<<status<<" "<<path.size()<<"\n";
 
 		if(status==0 || path.size()!=n+1)
 			cout<<"IMPOSSIBLE\n";
