@@ -3,11 +3,13 @@
 using namespace std;
 
 int main(void) {
-    int a = 3;
-    int b = 5;
+    int a;
+    int b;
+    cin >> a >> b;
     while(b--){
-        while(a--){
-            cout<<a;
+        int t = a;
+        while(t--){
+            cout<<"*";
         }
         cout<<"\n";
     }
